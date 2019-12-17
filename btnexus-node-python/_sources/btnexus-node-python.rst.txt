@@ -1,0 +1,17 @@
+btnexus\-node\-python package
+=============================
+
+.. automodule:: btnexus-node-python
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   btnexus-node-python.btHook
+   btnexus-node-python.btNode
+   btnexus-node-python.btNodeV3
+   btnexus-node-python.btPostRequest
