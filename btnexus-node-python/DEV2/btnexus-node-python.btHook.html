@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>btnexus-node-python.btHook module &mdash; btnexus-node-python  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="btnexus-node-python.btNode module" href="btnexus-node-python.btNode.html" />
+    <link rel="prev" title="btnexus-node-python package" href="btnexus-node-python.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> btnexus-node-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="btnexus-node-python.html">btnexus-node-python package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="btnexus-node-python.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">btnexus-node-python.btHook module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="btnexus-node-python.btNode.html">btnexus-node-python.btNode module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="btnexus-node-python.btNodeV3.html">btnexus-node-python.btNodeV3 module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="btnexus-node-python.btPostRequest.html">btnexus-node-python.btPostRequest module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">btnexus-node-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="btnexus-node-python.html">btnexus-node-python package</a> &raquo;</li>
+        
+      <li>btnexus-node-python.btHook module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/btnexus-node-python.btHook.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-btHook">
+<span id="btnexus-node-python-bthook-module"></span><h1>btnexus-node-python.btHook module<a class="headerlink" href="#module-btHook" title="Permalink to this headline">¶</a></h1>
+<p>Blackout Nexus hook. Base class for all hooks</p>
+<dl class="class">
+<dt id="btHook.Hook">
+<em class="property">class </em><code class="sig-prename descclassname">btHook.</code><code class="sig-name descname">Hook</code><span class="sig-paren">(</span><em class="sig-param">connectHash=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="btnexus-node-python.btNode.html#btNode.Node" title="btNode.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">btNode.Node</span></code></a></p>
+<p>Blackout Nexus hook. Base class for all hooks</p>
+<dl class="method">
+<dt id="btHook.Hook.cleanUp">
+<code class="sig-name descname">cleanUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.cleanUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.cleanUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregister the hook and send exit state</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load a value to a specific key in the NexusData Api</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>String</em>) – the key to which the value should be saved</p></li>
+<li><p><strong>callback</strong> (<em>function pointer</em>) – callback to handle the api response</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.onConnected">
+<code class="sig-name descname">onConnected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.onConnected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.onConnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup all Callbacks</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.onInit">
+<code class="sig-name descname">onInit</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.onInit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.onInit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initilize what you need before the hook connected - you can pass kwargs in the constructor to use them here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.onMessage">
+<code class="sig-name descname">onMessage</code><span class="sig-paren">(</span><em class="sig-param">originalTxt</em>, <em class="sig-param">intent</em>, <em class="sig-param">language</em>, <em class="sig-param">entities</em>, <em class="sig-param">slots</em>, <em class="sig-param">branchName</em>, <em class="sig-param">peer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.onMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.onMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overload for your custum hook! - it needs to trigger say</p>
+<p>React on a message forwarded to the hook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>originalTxt</strong> (<em>String</em>) – the original text</p></li>
+<li><p><strong>intent</strong> (<em>String</em>) – the classified intent</p></li>
+<li><p><strong>language</strong> (<em>String</em>) – the (classified) language</p></li>
+<li><p><strong>entities</strong> (<em>List of</em><em> (</em><em>String</em><em>)</em>) – List of used entities</p></li>
+<li><p><strong>slots</strong> (<em>List of</em><em> (</em><em>String</em><em>)</em>) – List of used slots</p></li>
+<li><p><strong>branchName</strong> (<em>String</em>) – Name of the Branch</p></li>
+<li><p><strong>peer</strong> (<em>dict</em>) – param to indentify message origin</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.onReady">
+<code class="sig-name descname">onReady</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.onReady"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.onReady" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initilize what you need after the hook connected - you can pass kwargs in the constructor to use them here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.put">
+<code class="sig-name descname">put</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em>, <em class="sig-param">callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a value to a specific key in the NexusData Api - the value must be a list otherwise it will be overwritten</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>String</em>) – the key to which the value should be saved</p></li>
+<li><p><strong>value</strong> (<em>Object</em>) – the object which should be saved</p></li>
+<li><p><strong>callback</strong> (<em>function pointer</em>) – callback to handle the api response</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em>, <em class="sig-param">callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>save a value to a specific key in the NexusData Api</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>String</em>) – the key to which the value should be saved</p></li>
+<li><p><strong>value</strong> (<em>Object</em>) – the object which should be saved</p></li>
+<li><p><strong>callback</strong> (<em>function pointer</em>) – callback to handle the api response</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.say">
+<code class="sig-name descname">say</code><span class="sig-paren">(</span><em class="sig-param">peer</em>, <em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.say"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.say" title="Permalink to this definition">¶</a></dt>
+<dd><p>publishes the hooks response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>dict</em>) – the message dict with at least the field ‘answer’</p></li>
+<li><p><strong>peer</strong> (<em>Object</em>) – the peer object handed from onMessage</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.setUp">
+<code class="sig-name descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register the hook in the system</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="btHook.Hook.state">
+<code class="sig-name descname">state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btHook.html#Hook.state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btHook.Hook.state" title="Permalink to this definition">¶</a></dt>
+<dd><p>publish the state of the hook</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="btnexus-node-python.btNode.html" class="btn btn-neutral float-right" title="btnexus-node-python.btNode module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="btnexus-node-python.html" class="btn btn-neutral float-left" title="btnexus-node-python package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Blackout Technologies
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
