@@ -1,0 +1,7 @@
+btnexus\-node\-python.btNode module
+===================================
+
+.. automodule:: btNode
+   :members:
+   :undoc-members:
+   :show-inheritance:
