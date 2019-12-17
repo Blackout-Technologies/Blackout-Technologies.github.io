@@ -1,7 +1,0 @@
-btnexus\-node\-python.btPostRequest module
-==========================================
-
-.. automodule:: btPostRequest
-   :members:
-   :undoc-members:
-   :show-inheritance:
