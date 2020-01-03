@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>btNode &mdash; btnexus-node-python  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> btnexus-node-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../btnexus-node-python.html">btnexus-node-python package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">btnexus-node-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>btNode</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for btNode</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Blackout Nexus node. Base class for all personality core parts&quot;&quot;&quot;</span>
+
+<span class="c1"># System imports</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># 3rd Party imports</span>
+
+
+<span class="c1"># local imports</span>
+<span class="kn">from</span> <span class="nn">nexus.nexusConnector</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">nexus.message</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># end file header</span>
+<span class="n">__author__</span>      <span class="o">=</span> <span class="s2">&quot;Marc Fiedler&quot;</span>
+<span class="n">__copyright__</span>   <span class="o">=</span> <span class="s2">&quot;Copyright (c)2017, Blackout Technologies&quot;</span>
+
+<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Blackout Nexus node&quot;&quot;&quot;</span>
+    <span class="n">NEXUSINFO</span> <span class="o">=</span> <span class="mi">21</span>
+    <span class="c1"># TODO: can I add a docstring here? - http://epydoc.sourceforge.net/manual-docstring.html#variable-docstrings</span>
+
+<div class="viewcode-block" id="Node.nexusFormat"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.nexusFormat">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">nexusFormat</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">levelno</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">NEXUSINFO</span><span class="p">:</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">levelname</span> <span class="o">=</span> <span class="s1">&#39;NEXUSINFO&#39;</span>   
+        <span class="k">return</span> <span class="s1">&#39;[</span><span class="si">{}</span><span class="s1">] </span><span class="si">{}</span><span class="s1"> - </span><span class="si">{}</span><span class="s1"> : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">levelname</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">created</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="n">axonURL</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="n">debug</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor sets up the NexusConnector.</span>
+
+<span class="sd">        :param token: AccessToken for the btNexus</span>
+<span class="sd">        :type token: String</span>
+<span class="sd">        :param axonURL: URL for the Axon(InstanceURL)</span>
+<span class="sd">        :type axonURL: String</span>
+<span class="sd">        :param debug: switch for debug messages</span>
+<span class="sd">        :type debug: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">token</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TOKEN&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axonURL</span> <span class="o">=</span> <span class="n">axonURL</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axonURL</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axonURL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;AXON_HOST&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">debug</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="s2">&quot;NEXUS_DEBUG&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodeName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">axonURL</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axonURL</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">logger</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;btNexus.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodeName</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+                <span class="c1"># INFO Handler</span>
+                <span class="n">infHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+                <span class="n">infHandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">)</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">%(levelname)s</span><span class="s1">]</span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(asctime)s</span><span class="s1"> : </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">infHandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">infHandler</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+                <span class="c1"># NexusInfo Handler</span>
+                <span class="n">nexInfHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+                <span class="n">nexInfHandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NEXUSINFO</span><span class="p">)</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">()</span><span class="c1">#&#39;[NEXUS]%(name)s - %(asctime)s : %(message)s&#39;) # TODO: maybe also use levelname in a good way so that NEXUSINFO is not shown as</span>
+                <span class="n">formatter</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">Node</span><span class="o">.</span><span class="n">nexusFormat</span>
+                <span class="n">nexInfHandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">nexInfHandler</span><span class="p">)</span>
+            
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span> <span class="o">=</span> <span class="n">NexusConnector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onConnected</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axonURL</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodeName</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Node.linkModule"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.linkModule">[docs]</a>    <span class="k">def</span> <span class="nf">linkModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span><span class="n">group</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        EXPERIMENTAL</span>
+<span class="sd">        Link a python object to the messaging service</span>
+<span class="sd">        This makes every method of the object accessable as callbacks over the btNexus</span>
+
+<span class="sd">        :param module: the module to be linked</span>
+<span class="sd">        :type module: Object</span>
+<span class="sd">        :param group: The group the callbacks should subscribe to</span>
+<span class="sd">        :type group: String</span>
+<span class="sd">        :param topic: The topic on callbacks should subscribe to</span>
+<span class="sd">        :type topic: String</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Construct a callback</span>
+        <span class="c1">#module = ALProxy(moduleName).session().service(moduleName)</span>
+        <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">func</span><span class="p">],</span> <span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.subscribe"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.subscribe">[docs]</a>    <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">funcName</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Subscribe to a group &amp; topic with a callback</span>
+
+<span class="sd">        :param group: Name of the group</span>
+<span class="sd">        :type group: String</span>
+<span class="sd">        :param topic: Name of the topic</span>
+<span class="sd">        :type topic: String</span>
+<span class="sd">        :param callback: function pointer to the callback</span>
+<span class="sd">        :type callback: function pointer</span>
+<span class="sd">        :param funcName: Name of the function. If not set this is the name of the function in the implementation(needed if you want to link a function to a different name)</span>
+<span class="sd">        :type funcName: String</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">funcName</span> <span class="o">=</span> <span class="n">funcName</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.publish"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.publish">[docs]</a>    <span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">group</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">funcName</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        publishes a Message with the payload(funcName and params) to a topic.</span>
+
+<span class="sd">        :param group: Name of the group</span>
+<span class="sd">        :type group: String</span>
+<span class="sd">        :param topic: Name of the topic</span>
+<span class="sd">        :type topic: String</span>
+<span class="sd">        :param funcName: Name of the function.</span>
+<span class="sd">        :type funcName: String</span>
+<span class="sd">        :param params: The parameters for the callback</span>
+<span class="sd">        :type params: List or keywordDict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">topic</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">publishError</span><span class="p">(</span><span class="s2">&quot;Topic needs to be a String. Is of type </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">topic</span><span class="p">)))</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">funcName</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">publishError</span><span class="p">(</span><span class="s2">&quot;FuncName needs to be a String. Is of type </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">funcName</span><span class="p">)))</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">publishError</span><span class="p">(</span><span class="s2">&quot;params needs to be a list of parameters or keywordDict. Is of type </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">params</span><span class="p">))))</span>
+            <span class="k">return</span>
+
+        <span class="n">info</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;publish&quot;</span><span class="p">)</span>
+        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;topic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;ai.blackout.&quot;</span> <span class="o">+</span> <span class="n">topic</span>
+        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;payload&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">funcName</span><span class="p">:</span><span class="n">params</span><span class="p">}</span>
+        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
+        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">group</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">info</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.publishDebug"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.publishDebug">[docs]</a>    <span class="k">def</span> <span class="nf">publishDebug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Publish a Debug message on the btNexus if debug is active</span>
+
+<span class="sd">        :param debug: A Message to send to the debug topic</span>
+<span class="sd">        :type debug: String</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">debug</span> <span class="o">=</span> <span class="s2">&quot;Class: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">debug</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">debug</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span><span class="o">.</span><span class="n">publishDebug</span><span class="p">(</span><span class="n">debug</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.publishWarning"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.publishWarning">[docs]</a>    <span class="k">def</span> <span class="nf">publishWarning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">warning</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Publish a Warning message on the btNexus</span>
+
+<span class="sd">        :param warning: A Message to send to the warning topic</span>
+<span class="sd">        :type warning: String</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warning</span> <span class="o">=</span> <span class="s2">&quot;Class: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">warning</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span><span class="o">.</span><span class="n">publishWarning</span><span class="p">(</span><span class="n">warning</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.publishError"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.publishError">[docs]</a>    <span class="k">def</span> <span class="nf">publishError</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Publish a Error message on the btNexus</span>
+
+<span class="sd">        :param error: A Message to send to the error topic</span>
+<span class="sd">        :type error: String</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;Class: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">error</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span><span class="o">.</span><span class="n">publishError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.write"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This forwards errors to the publishError function to make them visible in the btNexus</span>
+
+<span class="sd">        :param error: A Message to send to the error topic</span>
+<span class="sd">        :type error: String</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publishError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.onError"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.onError">[docs]</a>    <span class="k">def</span> <span class="nf">onError</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handling of Errors. If not overloaded it just forwards the error to the nexusConnector which just prints and publishes it if possible</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span><span class="o">.</span><span class="n">onError</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">] Error: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodeName</span><span class="p">,</span> <span class="n">error</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Node.onConnected"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.onConnected">[docs]</a>    <span class="k">def</span> <span class="nf">onConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Is called when this node was connected</span>
+<span class="sd">        This needs to be overloaded to subscribe to messages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You are using deprecated method nodeConnected(). You should use onConnected()&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodeConnected</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Node.onDisconnected"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.onDisconnected">[docs]</a>    <span class="k">def</span> <span class="nf">onDisconnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This will be executed after a the Node is disconnected from the btNexus - here Threads can be closed or other variables can be reset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NEXUSINFO</span><span class="p">,</span> <span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">]: onDisconnected&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodeName</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Node.setUp"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Implement this to handle the things, which should be done before the connection to nexus is established. This will also be called for reconnects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NEXUSINFO</span><span class="p">,</span><span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">]: setUp&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodeName</span><span class="p">))</span></div>
+
+    <span class="c1"># def cleanUp(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Implement this to handle the things, which should be done when you disconnect the node.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     self.logger.info(&quot;[{}]: cleanUp&quot;.format(self.nodeName))</span>
+
+<div class="viewcode-block" id="Node.connect"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runs this node and listen forever</span>
+<span class="sd">        This is a blocking call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.disconnect"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Closes the connection to the Axon</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nexusConnector</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Node.run"><a class="viewcode-back" href="../btnexus-node-python.btNode.html#btNode.Node.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        DEPRECATED: Will be replaced with connect(). Is here for backwards compatibility.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You are using deprecated method run(). You should use connect()&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Blackout Technologies
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
