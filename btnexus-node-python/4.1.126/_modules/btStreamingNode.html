@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>btStreamingNode &mdash; btnexus-node-python  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> btnexus-node-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../btnexus-node-python.html">btnexus-node-python package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">btnexus-node-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>btStreamingNode</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for btStreamingNode</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;A Node which accepts audio streams and forwards them to the speech to text service of your choice and publishes the transcript on the transcript topic&#39;&#39;&#39;</span>
+
+<span class="c1"># System imports</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># 3rd Party imports</span>
+<span class="kn">from</span> <span class="nn">btNode</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">ssl</span>
+<span class="kn">from</span> <span class="nn">btPostRequest</span> <span class="kn">import</span> <span class="n">BTPostRequest</span>
+
+<span class="c1"># local imports</span>
+<span class="kn">from</span> <span class="nn">nexus.protocols.audioStreamFactory</span> <span class="kn">import</span> <span class="n">AudioStreamFactory</span>
+<span class="c1"># end file header</span>
+<span class="n">__author__</span>      <span class="o">=</span> <span class="s1">&#39;Adrian Lubitz&#39;</span>
+<span class="n">__copyright__</span>   <span class="o">=</span> <span class="s1">&#39;Copyright (c)2017, Blackout Technologies&#39;</span>
+
+
+<div class="viewcode-block" id="StreamingNode"><a class="viewcode-back" href="../btnexus-node-python.btStreamingNode.html#btStreamingNode.StreamingNode">[docs]</a><span class="k">class</span> <span class="nc">StreamingNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="n">axonURL</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">personalityId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">integrationId</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="n">sessionId</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StreamingNode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>  <span class="n">axonURL</span><span class="o">=</span><span class="n">axonURL</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span> <span class="o">=</span> <span class="n">personalityId</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">integrationId</span> <span class="o">=</span> <span class="n">integrationId</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="n">language</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessionId</span> <span class="o">=</span> <span class="n">sessionId</span>
+
+<div class="viewcode-block" id="StreamingNode.connect"><a class="viewcode-back" href="../btnexus-node-python.btStreamingNode.html#btStreamingNode.StreamingNode.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">reactor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StreamingNode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">reactor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StreamingNode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_setUp</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calling StreamingNode _setUp&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PERSONALITYID&quot;</span><span class="p">]</span> 
+        <span class="c1"># self.msKey = os.environ[&quot;MSKEY&quot;]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">integrationId</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">integrationId</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;INTEGRATIONID&#39;</span><span class="p">]</span> <span class="c1">#&quot;f0458d18-3108-11e9-b210-d663bd873d93&quot; - This is the robot integrationId - this needs to be set correctly using env</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;integrationId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">integrationId</span><span class="p">,</span>
+            <span class="s1">&#39;personalityId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionId</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;URL: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axonURL</span><span class="p">))</span>
+                <span class="n">BTPostRequest</span><span class="p">(</span><span class="s1">&#39;sessionAccessRequest&#39;</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">accessToken</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axonURL</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">setSessionId</span><span class="p">)</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#This is called as a blocking call - if there is never a response coming this might be a problem...</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">publishError</span><span class="p">(</span><span class="s1">&#39;Unable to get sessionId: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span> <span class="c1"># if not connected it will only print here</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># sleep</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_setUp</span><span class="p">()</span>  <span class="c1"># and retry</span>
+            
+        
+
+<div class="viewcode-block" id="StreamingNode.setSessionId"><a class="viewcode-back" href="../btnexus-node-python.btStreamingNode.html#btStreamingNode.StreamingNode.setSessionId">[docs]</a>    <span class="k">def</span> <span class="nf">setSessionId</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="c1"># print(&#39;response: {}&#39;.format(response))</span>
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sessionId</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;sessionToken&#39;</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;set sessionId to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sessionId</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span> <span class="c1"># TODO: what should I do here? - retry</span></div>
+
+    <span class="k">def</span> <span class="nf">_onDisconnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="c1"># kill the connection here</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StreamingNode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_onDisconnected</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">loseConnection</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">connectionLost</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Killing the AudioStreamer&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_onConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This will be executed after a the Node is succesfully connected to the btNexus</span>
+<span class="sd">        Here you need to subscribe and set everything else up.</span>
+
+<span class="sd">        :returns: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StreamingNode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_onConnected</span><span class="p">()</span>
+        <span class="c1"># start the streaming in a thread</span>
+        <span class="c1"># start a sending client here</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span><span class="p">,</span> <span class="n">topic</span><span class="o">=</span><span class="s1">&#39;audio&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">initStream_response</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span><span class="p">,</span> <span class="n">topic</span><span class="o">=</span><span class="s1">&#39;audio&#39;</span><span class="p">,</span> <span class="n">funcName</span><span class="o">=</span><span class="s1">&#39;initStream&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sessionId</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="StreamingNode.initStream_response"><a class="viewcode-back" href="../btnexus-node-python.btStreamingNode.html#btStreamingNode.StreamingNode.initStream_response">[docs]</a>    <span class="k">def</span> <span class="nf">initStream_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="p">:</span>
+            <span class="n">serverAddress</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;returnValue&#39;</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Want to connect to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serverAddress</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">serverAddress</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+            <span class="n">factory</span> <span class="o">=</span> <span class="n">AudioStreamFactory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">reactor</span>
+            <span class="n">reactor</span><span class="o">.</span><span class="n">callFromThread</span><span class="p">(</span><span class="n">reactor</span><span class="o">.</span><span class="n">connectSSL</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">factory</span><span class="p">,</span> <span class="n">ssl</span><span class="o">.</span><span class="n">ClientContextFactory</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting the AudioStreamer on </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Im already connected  - just ignoring this.&#39;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_startStreaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span> <span class="o">=</span> <span class="n">transport</span>
+        <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">onStreamReady</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="StreamingNode.onStreamReady"><a class="viewcode-back" href="../btnexus-node-python.btStreamingNode.html#btStreamingNode.StreamingNode.onStreamReady">[docs]</a>    <span class="k">def</span> <span class="nf">onStreamReady</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Stream as long as you want but use reactor.callFromThread and after finishing self.transport.loseConnection and self.transport = None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="StreamingNode.getSessionId"><a class="viewcode-back" href="../btnexus-node-python.btStreamingNode.html#btStreamingNode.StreamingNode.getSessionId">[docs]</a>    <span class="k">def</span> <span class="nf">getSessionId</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        return the sessionId this needs to be implemented for a service node</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionId</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">asn</span> <span class="o">=</span> <span class="n">StreamingNode</span><span class="p">()</span>
+    <span class="n">asn</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Blackout Technologies
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
