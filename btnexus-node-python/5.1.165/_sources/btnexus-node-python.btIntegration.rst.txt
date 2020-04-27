@@ -1,0 +1,7 @@
+btnexus\-node\-python.btIntegration module
+==========================================
+
+.. automodule:: btIntegration
+   :members:
+   :undoc-members:
+   :show-inheritance:
