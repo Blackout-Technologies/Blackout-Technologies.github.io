@@ -1,0 +1,19 @@
+btnexus\-node\-python package
+=============================
+
+.. automodule:: btnexus-node-python
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   btnexus-node-python.btHook
+   btnexus-node-python.btIntegration
+   btnexus-node-python.btNode
+   btnexus-node-python.btPostRequest
+   btnexus-node-python.btStreamingNode
