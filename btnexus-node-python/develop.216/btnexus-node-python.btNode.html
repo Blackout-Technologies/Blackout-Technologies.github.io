@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>btnexus-node-python.btNode module &mdash; btnexus-node-python  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="btnexus-node-python.btPostRequest module" href="btnexus-node-python.btPostRequest.html" />
+    <link rel="prev" title="btnexus-node-python.btIntegration module" href="btnexus-node-python.btIntegration.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> btnexus-node-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="btnexus-node-python.html">btnexus-node-python package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="btnexus-node-python.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="btnexus-node-python.btHook.html">btnexus-node-python.btHook module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="btnexus-node-python.btIntegration.html">btnexus-node-python.btIntegration module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">btnexus-node-python.btNode module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="btnexus-node-python.btPostRequest.html">btnexus-node-python.btPostRequest module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="btnexus-node-python.btStreamingNode.html">btnexus-node-python.btStreamingNode module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">btnexus-node-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="btnexus-node-python.html">btnexus-node-python package</a> &raquo;</li>
+        
+      <li>btnexus-node-python.btNode module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/btnexus-node-python.btNode.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-btNode">
+<span id="btnexus-node-python-btnode-module"></span><h1>btnexus-node-python.btNode module<a class="headerlink" href="#module-btNode" title="Permalink to this headline">¶</a></h1>
+<p>Blackout Nexus node. Base class for all personality core parts</p>
+<dl class="py class">
+<dt id="btNode.Node">
+<em class="property">class </em><code class="sig-prename descclassname">btNode.</code><code class="sig-name descname">Node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connectHash</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">packagePath</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rcPath</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">logger</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Blackout Nexus node</p>
+<p>Constructor sets up the NexusConnector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> (<em>String</em>) – AccessToken for the btNexus</p></li>
+<li><p><strong>axonURL</strong> (<em>String</em>) – URL for the Axon(InstanceURL)</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>) – switch for debug messages</p></li>
+<li><p><strong>logger</strong> (<em>Logger</em>) – a logger object to log to</p></li>
+<li><p><strong>personalityId</strong> (<em>String</em>) – Id of your Personality</p></li>
+<li><p><strong>integrationId</strong> (<em>String</em>) – Id of the integration this Node belongs to</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="btNode.Node.NEXUSINFO">
+<code class="sig-name descname">NEXUSINFO</code><em class="property"> = 21</em><a class="headerlink" href="#btNode.Node.NEXUSINFO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logging level for nexus messages</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.connect">
+<code class="sig-name descname">connect</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs this node and listen forever
+This is a blocking call
+Uses the kwargs for the socketio.Client see <a class="reference external" href="https://python-socketio.readthedocs.io/en/latest/api.html">https://python-socketio.readthedocs.io/en/latest/api.html</a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.disconnect">
+<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection to the Axon</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.isConnected">
+<code class="sig-name descname">isConnected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.isConnected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.isConnected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.linkModule">
+<code class="sig-name descname">linkModule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em>, <em class="sig-param"><span class="n">group</span></em>, <em class="sig-param"><span class="n">topic</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.linkModule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.linkModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>EXPERIMENTAL
+Link a python module to the messaging service
+This makes every routine of the module accessable as callbacks over the btNexus
+the routines are checked with inspect.isroutine()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> (<em>Object</em>) – the module to be linked</p></li>
+<li><p><strong>group</strong> (<em>String</em>) – The group the callbacks should subscribe to</p></li>
+<li><p><strong>topic</strong> (<em>String</em>) – The topic on callbacks should subscribe to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.nexusFormat">
+<em class="property">classmethod </em><code class="sig-name descname">nexusFormat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.nexusFormat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.nexusFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.onConnected">
+<code class="sig-name descname">onConnected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.onConnected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.onConnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is called when this node was connected
+This needs to be overloaded to subscribe to messages.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.onDisconnected">
+<code class="sig-name descname">onDisconnected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.onDisconnected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.onDisconnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will be executed after a the Node is disconnected from the btNexus - here Threads can be closed or other variables can be reset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.onError">
+<code class="sig-name descname">onError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">error</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.onError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.onError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handling of Errors. If not overloaded it just forwards the error to the nexusConnector which just prints and publishes it if possible</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.publish">
+<code class="sig-name descname">publish</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">group</span></em>, <em class="sig-param"><span class="n">topic</span></em>, <em class="sig-param"><span class="n">funcName</span></em>, <em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">raises</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.publish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.publish" title="Permalink to this definition">¶</a></dt>
+<dd><p>publishes a Message with the payload(funcName and params) to a topic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group</strong> (<em>String</em>) – Name of the group</p></li>
+<li><p><strong>topic</strong> (<em>String</em>) – Name of the topic</p></li>
+<li><p><strong>funcName</strong> (<em>String</em>) – Name of the function.</p></li>
+<li><p><strong>params</strong> (<em>List</em><em> or </em><em>keywordDict</em>) – The parameters for the callback</p></li>
+<li><p><strong>raises</strong> (<em>boolean</em>) – if set this raises a NexusNotConnectedException if not connected to the Nexus</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.publishDebug">
+<code class="sig-name descname">publishDebug</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">debug</span></em>, <em class="sig-param"><span class="n">raises</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.publishDebug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.publishDebug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Publish a Debug message on the btNexus if debug is active</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>debug</strong> (<em>String</em>) – A Message to send to the debug topic</p></li>
+<li><p><strong>raises</strong> (<em>boolean</em>) – if set this raises a NexusNotConnectedException if not connected to the Nexus</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.publishError">
+<code class="sig-name descname">publishError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">error</span></em>, <em class="sig-param"><span class="n">raises</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.publishError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.publishError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Publish a Error message on the btNexus</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error</strong> (<em>String</em>) – A Message to send to the error topic</p></li>
+<li><p><strong>raises</strong> (<em>boolean</em>) – if set this raises a NexusNotConnectedException if not connected to the Nexus</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.publishWarning">
+<code class="sig-name descname">publishWarning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">warning</span></em>, <em class="sig-param"><span class="n">raises</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.publishWarning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.publishWarning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Publish a Warning message on the btNexus</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>warning</strong> (<em>String</em>) – A Message to send to the warning topic</p></li>
+<li><p><strong>raises</strong> (<em>boolean</em>) – if set this raises a NexusNotConnectedException if not connected to the Nexus</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.reconnect">
+<code class="sig-name descname">reconnect</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.reconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.reconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>DEPRECATED: Will be replaced with connect(). Is here for backwards compatibility.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.setUp">
+<code class="sig-name descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this to handle the things, which should be done before the connection to nexus is established. This will also be called for reconnects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.subscribe">
+<code class="sig-name descname">subscribe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">group</span></em>, <em class="sig-param"><span class="n">topic</span></em>, <em class="sig-param"><span class="n">callback</span></em>, <em class="sig-param"><span class="n">funcName</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribe to a group &amp; topic with a callback</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group</strong> (<em>String</em>) – Name of the group</p></li>
+<li><p><strong>topic</strong> (<em>String</em>) – Name of the topic</p></li>
+<li><p><strong>callback</strong> (<em>function pointer</em>) – function pointer to the callback</p></li>
+<li><p><strong>funcName</strong> (<em>String</em>) – Name of the function. If not set this is the name of the function in the implementation(needed if you want to link a function to a different name)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btNode.Node.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">error</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btNode.html#Node.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btNode.Node.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>This forwards errors to the publishError function to make them visible in the btNexus</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>error</strong> (<em>String</em>) – A Message to send to the error topic</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="btnexus-node-python.btPostRequest.html" class="btn btn-neutral float-right" title="btnexus-node-python.btPostRequest module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="btnexus-node-python.btIntegration.html" class="btn btn-neutral float-left" title="btnexus-node-python.btIntegration module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Blackout Technologies
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
