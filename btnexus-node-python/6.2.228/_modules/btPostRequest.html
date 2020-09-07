@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>btPostRequest &mdash; btnexus-node-python  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> btnexus-node-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../btnexus-node-python.html">btnexus-node-python package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">btnexus-node-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>btPostRequest</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for btPostRequest</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;A post request following the BTProtocol&quot;&quot;&quot;</span>
+<span class="c1"># System imports</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c1"># 3rd Party imports</span>
+
+<span class="c1"># local imports</span>
+<span class="kn">from</span> <span class="nn">nexus.postRequest</span> <span class="kn">import</span> <span class="n">PostRequest</span>
+
+<span class="c1"># end file header</span>
+<span class="n">__author__</span>      <span class="o">=</span> <span class="s2">&quot;Adrian Lubitz&quot;</span>
+<span class="n">__copyright__</span>   <span class="o">=</span> <span class="s2">&quot;Copyright (c)2017, Blackout Technologies&quot;</span>
+
+<div class="viewcode-block" id="BTPostRequest"><a class="viewcode-back" href="../btnexus-node-python.btPostRequest.html#btPostRequest.BTPostRequest">[docs]</a><span class="k">class</span> <span class="nc">BTPostRequest</span><span class="p">(</span><span class="n">PostRequest</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A post request following the BTProtocol&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intent</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">accessToken</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errBack</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        setting up the request with the btProtocol.</span>
+
+<span class="sd">        :param intent: intent for the BTPostRequest</span>
+<span class="sd">        :type intent: String</span>
+<span class="sd">        :param params: the parameters for the BTPostRequest</span>
+<span class="sd">        :type params: dict</span>
+<span class="sd">        :param accessToken: the accessToken</span>
+<span class="sd">        :type accessToken: String</span>
+<span class="sd">        :param url: the url of the instance to send the request to</span>
+<span class="sd">        :type url: String</span>
+<span class="sd">        :param callback: the callback which handles the response</span>
+<span class="sd">        :type callback: function pointer</span>
+<span class="sd">        :param errBack: callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can&#39;t be handled</span>
+<span class="sd">        :type errBack: function pointer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># check if slash in the end</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+            <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
+        <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;api&quot;</span>
+        
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;api&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;version&#39;</span><span class="p">:</span><span class="s1">&#39;5.0&#39;</span><span class="p">,</span> <span class="s1">&#39;intent&#39;</span><span class="p">:</span><span class="n">intent</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span> <span class="s1">&#39;blackout-token&#39;</span><span class="p">:</span> <span class="n">accessToken</span><span class="p">}</span>
+        <span class="c1"># print(&quot;Headers: {}&quot;.format(self.headers))</span>
+        <span class="c1"># print(&quot;Payload: {}&quot;.format(params))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BTPostRequest</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">errBack</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BTPostRequest.send"><a class="viewcode-back" href="../btnexus-node-python.btPostRequest.html#btPostRequest.BTPostRequest.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blocking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sending the request and executing the callback or errBack</span>
+
+<span class="sd">        :param blocking: decides if the call is blocking or threaded</span>
+<span class="sd">        :type blocking: Boolean</span>
+<span class="sd">        :param kwargs: keyword arguments for the requests.post call see https://2.python-requests.org//en/v2.5.3/api/ - `headers` cant be customized for a btPostRequest because it is already used internally</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">BTPostRequest</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="n">blocking</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Blackout Technologies
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
