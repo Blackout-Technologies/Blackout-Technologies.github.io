@@ -1,0 +1,15 @@
+btnexus\-integration\-python package
+====================================
+
+.. automodule:: btnexus-integration-python
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   btnexus-integration-python.btIntegration
