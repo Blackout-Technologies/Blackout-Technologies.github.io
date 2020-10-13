@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>btIntegration &mdash; btnexus-integration-python  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> btnexus-integration-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../btnexus-integration-python.html">btnexus-integration-python package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">btnexus-integration-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>btIntegration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for btIntegration</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Blackout Nexus node. Base class for all personality core parts&quot;&quot;&quot;</span>
+
+<span class="c1"># System imports</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">base64</span>
+
+
+
+
+<span class="c1"># 3rd Party imports</span>
+<span class="kn">from</span> <span class="nn">btPostRequest</span> <span class="kn">import</span> <span class="n">BTPostRequest</span>
+
+<span class="c1"># local imports</span>
+
+
+<span class="c1"># end file header</span>
+<span class="n">__author__</span>      <span class="o">=</span> <span class="s2">&quot;Adrian Lubitz&quot;</span>
+<span class="n">__copyright__</span>   <span class="o">=</span> <span class="s2">&quot;Copyright (c)2017, Blackout Technologies&quot;</span>
+
+<div class="viewcode-block" id="Integration"><a class="viewcode-back" href="../btnexus-integration-python.btIntegration.html#btIntegration.Integration">[docs]</a><span class="k">class</span> <span class="nc">Integration</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class provides all important endpoints which are needed to implement an Integration for the btNexus.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connectHash</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rcPath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">personalityId</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This class provides all important endpoints which are needed to implement an Integration for the btNexus.</span>
+
+<span class="sd">        :param connectHash: the connectHash - This must almost never be set! The connectHash is extracted automatically from the environment variable CONNECT_HASH or the .btnexusrc file</span>
+<span class="sd">        :type connectHash: String</span>
+<span class="sd">        :param rcPath: Path to your .btnexusrc file. If not set it is assumed, that it is in the working directory</span>
+<span class="sd">        :type rcPath: String</span>
+<span class="sd">        :param personalityId: The PersonalityId - This must almost never be set! The PersonalityId is automatically extracted from the environment variable PERSONALITY_ID (You should use it the same way while development to ensure it works in production)</span>
+<span class="sd">        :type personalityId: String</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">connectHash</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;CONNECT_HASH&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+                <span class="n">connectHash</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CONNECT_HASH&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rcPath</span> <span class="o">=</span> <span class="n">rcPath</span> <span class="k">if</span> <span class="n">rcPath</span> <span class="k">else</span> <span class="s1">&#39;.btnexusrc&#39;</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">rcPath</span><span class="p">)</span> <span class="k">as</span> <span class="n">btnexusrc</span><span class="p">:</span>
+                    <span class="n">connectHash</span> <span class="o">=</span> <span class="n">btnexusrc</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectHash</span> <span class="o">=</span> <span class="n">connectHash</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connectHash</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connectHashVersion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;You are using a deprecated version of the connect hash.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span> <span class="c1">#Apperently DeprecationWarnings are ignored for some reason</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">integrationId</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instanceURL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span> <span class="o">=</span> <span class="n">personalityId</span> <span class="k">if</span> <span class="n">personalityId</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PERSONALITY_ID&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessionToken</span> <span class="o">=</span> <span class="kc">None</span>
+        
+        <span class="c1"># self.packagePath = packagePath if packagePath else os.path.join(os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile(self.__class__)))), &#39;package.json&#39;)</span>
+
+        <span class="c1"># with open(self.packagePath) as jsonFile:</span>
+        <span class="c1">#     self.package = json.load(jsonFile)</span>
+
+
+
+        <span class="c1"># self.version = self.package[&#39;version&#39;]</span>
+
+    <span class="k">def</span> <span class="nf">_setSessionToken</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper method to set the sessionToken.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessionToken</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;sessionToken&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionCallback</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sessionCallback</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Integration.authenticateSession"><a class="viewcode-back" href="../btnexus-integration-python.btIntegration.html#btIntegration.Integration.authenticateSession">[docs]</a>    <span class="k">def</span> <span class="nf">authenticateSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errBack</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callbackArgs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        authenticate the session for calls to chat. </span>
+<span class="sd">        This should be called everytime a new session starts. </span>
+<span class="sd">        If not called explicitly it will be called by chat.</span>
+
+<span class="sd">        </span>
+<span class="sd">        :param callback: the callback which handles the response</span>
+<span class="sd">        :type callback: function pointer</span>
+<span class="sd">        :param errBack: callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can&#39;t be handled</span>
+<span class="sd">        :type errBack: function pointer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessionCallback</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="n">BTPostRequest</span><span class="p">(</span>
+            <span class="s1">&#39;sessionAccessRequest&#39;</span><span class="p">,</span> 
+            <span class="p">{</span>
+                <span class="s1">&#39;integrationId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">integrationId</span><span class="p">,</span>
+                <span class="s1">&#39;personalityId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span>
+            <span class="p">},</span> 
+            <span class="n">accessToken</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instanceURL</span><span class="p">,</span> 
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_setSessionToken</span><span class="p">,</span> 
+            <span class="n">errBack</span><span class="o">=</span><span class="n">errBack</span><span class="p">,</span> 
+            <span class="n">callbackArgs</span><span class="o">=</span><span class="n">callbackArgs</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Integration.chat"><a class="viewcode-back" href="../btnexus-integration-python.btIntegration.html#btIntegration.Integration.chat">[docs]</a>    <span class="k">def</span> <span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">actionSource</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errBack</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callbackArgs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call to the chat endpoint.</span>
+
+<span class="sd">        :param text: the text request to the Personality</span>
+<span class="sd">        :type text: String       </span>
+<span class="sd">        :param language: the language for the request in  ISO 3166-1 alpha-2 (Example: &#39;en-US&#39; or &#39;de-DE&#39;)</span>
+<span class="sd">        :type language: String</span>
+<span class="sd">        :param actionSource: Source for the action(used for buttons)</span>
+<span class="sd">        :type actionSource: String</span>
+<span class="sd">        :param callback: the callback which handles the response</span>
+<span class="sd">        :type callback: function pointer</span>
+<span class="sd">        :param errBack: callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can&#39;t be handled</span>
+<span class="sd">        :type errBack: function pointer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionToken</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">authenticateSession</span><span class="p">()</span>
+        <span class="n">BTPostRequest</span><span class="p">(</span>
+            <span class="s1">&#39;chat&#39;</span><span class="p">,</span> 
+            <span class="p">{</span>
+                <span class="s1">&#39;sessionToken&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessionToken</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+                <span class="s1">&#39;language&#39;</span><span class="p">:</span> <span class="n">language</span><span class="p">,</span>
+                <span class="s1">&#39;actionSource&#39;</span><span class="p">:</span> <span class="n">actionSource</span>
+
+            <span class="p">},</span> 
+            <span class="n">accessToken</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instanceURL</span><span class="p">,</span> 
+            <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> 
+            <span class="n">errBack</span><span class="o">=</span><span class="n">errBack</span><span class="p">,</span> 
+            <span class="n">callbackArgs</span><span class="o">=</span><span class="n">callbackArgs</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        
+
+<div class="viewcode-block" id="Integration.getPersonalityProfile"><a class="viewcode-back" href="../btnexus-integration-python.btIntegration.html#btIntegration.Integration.getPersonalityProfile">[docs]</a>    <span class="k">def</span> <span class="nf">getPersonalityProfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errBack</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callbackArgs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call to the personalityProfile endpoint.</span>
+<span class="sd">     </span>
+<span class="sd">        :param language: the language for the request in  ISO 3166-1 alpha-2 (Example: &#39;en-US&#39; or &#39;de-DE&#39;)</span>
+<span class="sd">        :type language: String</span>
+<span class="sd">        :param callback: the callback which handles the response</span>
+<span class="sd">        :type callback: function pointer</span>
+<span class="sd">        :param errBack: callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can&#39;t be handled</span>
+<span class="sd">        :type errBack: function pointer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">BTPostRequest</span><span class="p">(</span>
+            <span class="s1">&#39;personalityProfile&#39;</span><span class="p">,</span> 
+            <span class="p">{</span>
+                <span class="s1">&#39;personalityId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">personalityId</span><span class="p">,</span>
+                <span class="s1">&#39;language&#39;</span><span class="p">:</span> <span class="n">language</span>
+
+            <span class="p">},</span> 
+            <span class="n">accessToken</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instanceURL</span><span class="p">,</span> 
+            <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> 
+            <span class="n">errBack</span><span class="o">=</span><span class="n">errBack</span><span class="p">,</span> 
+            <span class="n">callbackArgs</span><span class="o">=</span><span class="n">callbackArgs</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">Integration</span><span class="p">(</span><span class="n">personalityId</span><span class="o">=</span><span class="s1">&#39;dc006af4-6cdf-0f50-8c14-1250496f3656&#39;</span><span class="p">)</span>
+    <span class="c1"># api.authenticateSession(print)</span>
+    <span class="c1"># print(&quot;SessionToken: {}&quot;.format(api.sessionToken))</span>
+    <span class="n">api</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="s1">&#39;Hi&#39;</span><span class="p">,</span> <span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="nb">print</span><span class="p">,</span> <span class="n">callbackArgs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;APPENDED THIS&quot;</span><span class="p">])</span>
+    <span class="n">api</span><span class="o">.</span><span class="n">getPersonalityProfile</span><span class="p">(</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="nb">print</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Blackout Technologies
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
