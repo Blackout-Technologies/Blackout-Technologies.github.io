@@ -1,0 +1,7 @@
+btnexus\-node\-python.btStreamingNode module
+============================================
+
+.. automodule:: btStreamingNode
+   :members:
+   :undoc-members:
+   :show-inheritance:
