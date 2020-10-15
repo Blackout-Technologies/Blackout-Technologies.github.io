@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>btnexus-integration-python.btIntegration module &mdash; btnexus-integration-python  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="btnexus-integration-python package" href="btnexus-integration-python.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> btnexus-integration-python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="btnexus-integration-python.html">btnexus-integration-python package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="btnexus-integration-python.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">btnexus-integration-python.btIntegration module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">btnexus-integration-python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="btnexus-integration-python.html">btnexus-integration-python package</a> &raquo;</li>
+        
+      <li>btnexus-integration-python.btIntegration module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/btnexus-integration-python.btIntegration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-btIntegration">
+<span id="btnexus-integration-python-btintegration-module"></span><h1>btnexus-integration-python.btIntegration module<a class="headerlink" href="#module-btIntegration" title="Permalink to this headline">¶</a></h1>
+<p>Blackout Nexus node. Base class for all personality core parts</p>
+<dl class="py class">
+<dt id="btIntegration.Integration">
+<em class="property">class </em><code class="sig-prename descclassname">btIntegration.</code><code class="sig-name descname">Integration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connectHash</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rcPath</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">personalityId</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">settingsPath</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btIntegration.html#Integration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btIntegration.Integration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class provides all important endpoints which are needed to implement an Integration for the btNexus.</p>
+<p>This class provides all important endpoints which are needed to implement an Integration for the btNexus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connectHash</strong> (<em>String</em>) – the connectHash - This must almost never be set! The connectHash is extracted automatically from the environment variable CONNECT_HASH or the .btnexusrc file</p></li>
+<li><p><strong>rcPath</strong> (<em>String</em>) – Path to your .btnexusrc file. If not set it is assumed, that it is in the working directory</p></li>
+<li><p><strong>personalityId</strong> (<em>String</em>) – The PersonalityId - This must almost never be set! The PersonalityId is automatically extracted from the environment variable PERSONALITY_ID (You should use it the same way while development to ensure it works in production)</p></li>
+<li><p><strong>settingsPath</strong> (<em>String</em>) – Path to your settings.json file. If not set it is assumed, that it is in the working directory</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="btIntegration.Integration.authenticateSession">
+<code class="sig-name descname">authenticateSession</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">errBack</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callbackArgs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btIntegration.html#Integration.authenticateSession"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btIntegration.Integration.authenticateSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>authenticate the session for calls to chat. 
+This should be called everytime a new session starts. 
+If not called explicitly it will be called by chat.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback</strong> (<em>function pointer</em>) – the callback which handles the response</p></li>
+<li><p><strong>errBack</strong> (<em>function pointer</em>) – callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can’t be handled</p></li>
+<li><p><strong>callbackArgs</strong> (<em>list</em>) – list of additional args for the callback (The list will be unpacked)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btIntegration.Integration.chat">
+<code class="sig-name descname">chat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">actionSource</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">errBack</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callbackArgs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btIntegration.html#Integration.chat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btIntegration.Integration.chat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call to the chat endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>String</em>) – the text request to the Personality</p></li>
+<li><p><strong>language</strong> (<em>String</em>) – the language for the request in  ISO 3166-1 alpha-2 (Example: ‘en-US’ or ‘de-DE’)</p></li>
+<li><p><strong>actionSource</strong> (<em>String</em>) – Source for the action(used for buttons)</p></li>
+<li><p><strong>callback</strong> (<em>function pointer</em>) – the callback which handles the response</p></li>
+<li><p><strong>errBack</strong> (<em>function pointer</em>) – callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can’t be handled</p></li>
+<li><p><strong>callbackArgs</strong> (<em>list</em>) – list of additional args for the callback (The list will be unpacked)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btIntegration.Integration.getChatBehavior">
+<code class="sig-name descname">getChatBehavior</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">behavior</span></em>, <em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">errBack</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callbackArgs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btIntegration.html#Integration.getChatBehavior"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btIntegration.Integration.getChatBehavior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call to the chatBehavior endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>language</strong> (<em>String</em>) – the language for the request in  ISO 3166-1 alpha-2 (Example: ‘en-US’ or ‘de-DE’)</p></li>
+<li><p><strong>behavior</strong> (<em>String</em>) – One out of engage-welcome, engage-greeting, disengage-goodbye, reaction-dunno, reaction-pet, reaction-named, error-offline, error-unknown-language, error-fatal, action-bored</p></li>
+<li><p><strong>callback</strong> (<em>function pointer</em>) – the callback which handles the response</p></li>
+<li><p><strong>errBack</strong> (<em>function pointer</em>) – callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can’t be handled</p></li>
+<li><p><strong>callbackArgs</strong> (<em>list</em>) – list of additional args for the callback (The list will be unpacked)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btIntegration.Integration.getPersonalityProfile">
+<code class="sig-name descname">getPersonalityProfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">errBack</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callbackArgs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btIntegration.html#Integration.getPersonalityProfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btIntegration.Integration.getPersonalityProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call to the personalityProfile endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>language</strong> (<em>String</em>) – the language for the request in  ISO 3166-1 alpha-2 (Example: ‘en-US’ or ‘de-DE’)</p></li>
+<li><p><strong>callback</strong> (<em>function pointer</em>) – the callback which handles the response</p></li>
+<li><p><strong>errBack</strong> (<em>function pointer</em>) – callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can’t be handled</p></li>
+<li><p><strong>callbackArgs</strong> (<em>list</em>) – list of additional args for the callback (The list will be unpacked)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="btIntegration.Integration.getSettings">
+<code class="sig-name descname">getSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">language</span></em>, <em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">errBack</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callbackArgs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/btIntegration.html#Integration.getSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btIntegration.Integration.getSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call to get settings. sets the settings in self.settings and calls the callback with this dict. 
+If no settings are available from the personality the default values from the settings.json file are taken and a warning is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>language</strong> (<em>String</em>) – the language for the request in  ISO 3166-1 alpha-2 (Example: ‘en-US’ or ‘de-DE’)</p></li>
+<li><p><strong>callback</strong> (<em>function pointer</em>) – the callback which handles the response</p></li>
+<li><p><strong>errBack</strong> (<em>function pointer</em>) – callback to handle errors that prevent that the response can be handled by the callback. takes one argument which is the exception - This is needed for the threaded send() otherwise exceptions can’t be handled</p></li>
+<li><p><strong>callbackArgs</strong> (<em>list</em>) – list of additional args for the callback (The list will be unpacked)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="btnexus-integration-python.html" class="btn btn-neutral float-left" title="btnexus-integration-python package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Blackout Technologies
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
